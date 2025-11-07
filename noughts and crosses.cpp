@@ -66,7 +66,7 @@ int main() {
 
 	do {
 		system("cls");
-		cout << "Welcome to Noughts and corsses\n!";
+		cout << "Welcome to Noughts and crosses!\n";
 		displayGrid();
 		displayInput();
 		checkInput();
@@ -79,9 +79,9 @@ int main() {
 void displayGrid() {
 	cout << grid[0][0] << "|" << grid[0][1] << "|" << grid[0][2] << '\n';
 	cout << "-|-|-\n";
-	cout << grid[0][0] << "|" << grid[0][1] << "|" << grid[0][2] << '\n';
+	cout << grid[1][0] << "|" << grid[1][1] << "|" << grid[1][2] << '\n';
 	cout << "-|-|-\n";
-	cout << grid[0][0] << "|" << grid[0][1] << "|" << grid[0][2] << '\n';
+	cout << grid[2][0] << "|" << grid[2][1] << "|" << grid[2][2] << '\n';
 }
 
 void displayInput() {
@@ -125,15 +125,15 @@ static void checkInput() {
 	input = toupper(input);
 
 	switch (input) {
-	case 'Q': fillSquare(0, 0); break;
-	case 'W': fillSquare(0, 1); break;
-	case 'E': fillSquare(0, 2); break;
-	case 'A': fillSquare(1, 0); break;
-	case 'S': fillSquare(1, 1); break;
-	case 'D': fillSquare(1, 2); break;
-	case 'Z': fillSquare(2, 0); break;
-	case 'X': fillSquare(2, 1); break;
-	case 'C': fillSquare(2, 2); break;
+		case 'Q': fillSquare(0, 0); break;
+		case 'W': fillSquare(0, 1); break;
+		case 'E': fillSquare(0, 2); break;
+		case 'A': fillSquare(1, 0); break;
+		case 'S': fillSquare(1, 1); break;
+		case 'D': fillSquare(1, 2); break;
+		case 'Z': fillSquare(2, 0); break;
+		case 'X': fillSquare(2, 1); break;
+		case 'C': fillSquare(2, 2); break;
 
 	default:
 		cout << "Invalid character, try again!\n";
