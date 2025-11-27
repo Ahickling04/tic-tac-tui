@@ -1,3 +1,5 @@
+#include <ftxui/dom/elements.hpp>
+#include <ftxui/screen/screen.hpp>
 #include <iostream>
 #include <stdio.h>
 #include <tchar.h>
@@ -13,6 +15,10 @@ void checkInput();
 void checkStatus();
 void init();
 
+//ftxui based functions incase i need to rewrite them
+
+
+
 //globals
 const int ROW = 3;
 const int COLS = 3;
@@ -27,23 +33,52 @@ int main() {
 	init();
 
 	do {
-		system("cls");
-		cout << "Welcome to Noughts and crosses!\n";
-		displayGrid();
-		displayInput();
-		checkInput();
-		checkStatus();
+	// 	system("cls");
+	// 	cout << "Welcome to Noughts and crosses!\n";
+	// displayGrid();
+	// 	displayInput();
+	// 	checkInput();
+	// 	checkStatus();
 
 	} while (toupper(input) != 'F');
 	//checks to see that the player hasnt quit by pressing f
+
+
+
+	return 0;
 }
 
 void displayGrid() {
-	cout << grid[0][0] << "|" << grid[0][1] << "|" << grid[0][2] << '\n';
-	cout << "-|-|-\n";
-	cout << grid[1][0] << "|" << grid[1][1] << "|" << grid[1][2] << '\n';
-	cout << "-|-|-\n";
-	cout << grid[2][0] << "|" << grid[2][1] << "|" << grid[2][2] << '\n';
+	//old code
+	
+	// cout << grid[0][0] << "|" << grid[0][1] << "|" << grid[0][2] << '\n';
+	// cout << "-|-|-\n";
+	// cout << grid[1][0] << "|" << grid[1][1] << "|" << grid[1][2] << '\n';
+	// cout << "-|-|-\n";
+	// cout << grid[2][0] << "|" << grid[2][1] << "|" << grid[2][2] << '\n';
+
+
+	//displays the grid using ftxui
+	auto document = ftxui::hbox({
+		ftxui::vbox({
+			ftxui::text(string(1, grid[0][0])) | ftxui::border,
+			ftxui::text(string(1, grid[1][0])) | ftxui::border,
+			ftxui::text(string(1, grid[2][0])) | ftxui::border,
+		}),
+		ftxui::vbox({
+			ftxui::text(string(1, grid[0][1])) | ftxui::border,
+			ftxui::text(string(1, grid[1][1])) | ftxui::border,
+			ftxui::text(string(1, grid[2][1])) | ftxui::border,
+		}),
+		ftxui::vbox({
+			ftxui::text(string(1, grid[0][2])) | ftxui::border,
+			ftxui::text(string(1, grid[1][2])) | ftxui::border,
+			ftxui::text(string(1, grid[2][2])) | ftxui::border,
+		}),
+	});
+	auto screen = ftxui::Screen::Create(ftxui::Dimension::Full(), ftxui::Dimension::Fit(document));
+	ftxui::Render(screen, document);
+	screen.Print();
 }
 
 void displayInput() {
