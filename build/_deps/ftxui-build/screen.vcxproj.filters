@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\src\ftxui\screen\box.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\src\ftxui\screen\color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\src\ftxui\screen\color_info.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\src\ftxui\screen\image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\src\ftxui\screen\screen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\src\ftxui\screen\string.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\src\ftxui\screen\terminal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\include\ftxui\screen\box.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\include\ftxui\screen\color.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\include\ftxui\screen\color_info.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\include\ftxui\screen\image.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\include\ftxui\screen\pixel.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\include\ftxui\screen\screen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\include\ftxui\screen\string.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\src\ftxui\screen\util.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Amy Hickling\Documents\dev\noughts and crosses\noughts and crosses\build\_deps\ftxui-src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{10D5B5C2-544F-34B3-A329-48C7BBFD0BFA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{52E0D137-0F96-338E-825B-A7B1795CFBB5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

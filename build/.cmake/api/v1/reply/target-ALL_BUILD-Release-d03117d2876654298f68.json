@@ -1,0 +1,42 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"build/_deps/ftxui-src/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "dom::@b65f64d0ea8424dee96a"
+		},
+		{
+			"id" : "component::@b65f64d0ea8424dee96a"
+		},
+		{
+			"id" : "screen::@b65f64d0ea8424dee96a"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "ALL_BUILD::@b65f64d0ea8424dee96a",
+	"isGeneratorProvided" : true,
+	"name" : "ALL_BUILD",
+	"paths" : 
+	{
+		"build" : "_deps/ftxui-build",
+		"source" : "build/_deps/ftxui-src"
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}
