@@ -1,9 +1,0 @@
-prefix="C:/Program Files (x86)/MyProject"
-libdir="C:/Program Files (x86)/MyProject/lib"
-includedir="C:/Program Files (x86)/MyProject/include"
-
-Name: ftxui
-Description: Cross-platform application
-Version: 6.1.9
-Cflags: -I${includedir}
-Libs: -L${libdir} -lftxui-component -lftxui-dom -lftxui-screen
