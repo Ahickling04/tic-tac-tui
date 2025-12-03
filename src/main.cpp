@@ -1,22 +1,31 @@
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/screen/screen.hpp>
+#include <ftxui/component/screen_interactive.hpp>
+#include <ftxui/component/component.hpp>
+#include <ftxui/component/component_options.hpp>
 #include <iostream>
 #include <stdio.h>
-#include <tchar.h>
+//#include <tchar.h>
 #include <string>
+
+//if the code is compiled on windows include conio.h for clearScreen
+#ifdef _WIN32
 #include <conio.h>
+#endif
 
 using namespace std;
 
+void gameLoop();
 void displayGrid();
 void displayInput();
 void fillSquare(int row, int col);
-void checkInput();
-void checkStatus();
-void init();
+static void checkInput();
+static void checkStatus();
+static void init();
 
 //ftxui based functions incase i need to rewrite them
-
+void displayMenuFTXUI();
+void clearScreen();
 
 
 //globals
@@ -28,22 +37,14 @@ char input = ' ';
 int currentPlayer = 1;
 
 int main() {
-	
 	//clear grid and set player to 1
 	init();
 
 	do {
-	// 	system("cls");
-	// 	cout << "Welcome to Noughts and crosses!\n";
-	// displayGrid();
-	// 	displayInput();
-	// 	checkInput();
-	// 	checkStatus();
-
-	} while (toupper(input) != 'F');
-	//checks to see that the player hasnt quit by pressing f
-
-
+		clearScreen();
+		displayMenuFTXUI();
+	} while (true || toupper(input) != 'F');
+	//runs the menu until user decides to quit
 
 	return 0;
 }
@@ -198,4 +199,69 @@ static void init() {
 			grid[row][col] = ' ';
 		}
 	}
+}
+
+void displayMenuFTXUI() {
+    using namespace ftxui;
+
+
+	//creates the screen and menu component
+    auto screen = ScreenInteractive::TerminalOutput();
+    std::vector<std::string> menu_entries = {
+        "Start Game",
+        "Quit"
+    };
+    int selected = 0; //sets the initial selected menu item
+
+    //Define the component for the menu logic.
+    MenuOption option;
+    //When the user presses Enter, exit the loop.
+    option.on_enter = screen.ExitLoopClosure();
+    auto menu = Menu(&menu_entries, &selected, option) | border | center;
+
+    //Defines the main document layout (Title + Menu)
+    auto title = text("Welcome to Noughts and Crosses!") | bold | hcenter;
+    auto component_document = ftxui::Renderer(menu, [menu, title] {
+        auto document = vbox({
+            title,
+            separator(),
+            menu->Render() //This is called on every screen update
+        }) | border | center;
+        
+        return document; 
+    });
+    
+    //Set the initial focus and run the interactive loop.
+    screen.Loop(component_document);
+    
+    //After the user exits the loop (by pressing Enter or clicking on a menu item),
+    //check the 'selected' index.
+    if (selected == 1) { // "Quit" is at index 1
+        clearScreen();
+		exit(0); 
+    }
+    else if (selected == 0) { //"Start Game" is at index 0
+
+        gameLoop(); 
+    }
+}
+
+void gameLoop() {
+	do{
+		clearScreen(); 
+		cout << "Welcome to Noughts and crosses!\n";
+		displayGrid();
+		displayInput();
+		checkInput();
+		checkStatus();
+	} while (toupper(input) != 'F');
+}
+
+void clearScreen() {
+	#ifdef _WIN32
+		system("cls");
+	#else
+		//assume Unix based
+		system("clear");
+	#endif
 }
