@@ -262,8 +262,9 @@ void singleplayerGameLoop(int selection) {
 		clearScreen(); 
 		cout << "Welcome to Noughts and crosses!\n";
 		
-		displayGrid();
 		computerMove(selection);
+		checkStatus();
+		displayGrid();
 		displayInput();
 		singleCheckInput();
 		checkStatus();
