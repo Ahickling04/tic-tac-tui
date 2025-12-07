@@ -15,17 +15,22 @@
 
 using namespace std;
 
-void gameLoop();
+void singleplayerGameLoop(int selection);
+void multiplayerGameLoop();
+void computerMove(int selection);
 void displayGrid();
 void displayInput();
 void fillSquare(int row, int col);
+void singleFillSquare(int row, int col);
 static void checkInput();
+static void singleCheckInput();
 static void checkStatus();
 static void init();
 
 //ftxui based functions incase i need to rewrite them
 void displayMenuFTXUI();
 void clearScreen();
+void difficultySelection();
 
 
 //globals
@@ -50,15 +55,6 @@ int main() {
 }
 
 void displayGrid() {
-	//old code
-	
-	// cout << grid[0][0] << "|" << grid[0][1] << "|" << grid[0][2] << '\n';
-	// cout << "-|-|-\n";
-	// cout << grid[1][0] << "|" << grid[1][1] << "|" << grid[1][2] << '\n';
-	// cout << "-|-|-\n";
-	// cout << grid[2][0] << "|" << grid[2][1] << "|" << grid[2][2] << '\n';
-
-
 	//displays the grid using ftxui
 	auto document = ftxui::hbox({
 		ftxui::vbox({
@@ -208,7 +204,8 @@ void displayMenuFTXUI() {
 	//creates the screen and menu component
     auto screen = ScreenInteractive::TerminalOutput();
     std::vector<std::string> menu_entries = {
-        "Start Game",
+        "1P Mode",
+		"2P Mode",
         "Quit"
     };
     int selected = 0; //sets the initial selected menu item
@@ -236,17 +233,20 @@ void displayMenuFTXUI() {
     
     //After the user exits the loop (by pressing Enter or clicking on a menu item),
     //check the 'selected' index.
-    if (selected == 1) { // "Quit" is at index 1
+    if (selected == 2) { // "Quit" is at index 2
         clearScreen();
 		exit(0); 
     }
-    else if (selected == 0) { //"Start Game" is at index 0
+    else if (selected == 1) { //"2P mode" is at index 1
 
-        gameLoop(); 
+        multiplayerGameLoop(); 
     }
+	else if(selected == 0){ //"Options" is at index 0
+		difficultySelection();
+	}
 }
 
-void gameLoop() {
+void multiplayerGameLoop() {
 	do{
 		clearScreen(); 
 		cout << "Welcome to Noughts and crosses!\n";
@@ -257,7 +257,203 @@ void gameLoop() {
 	} while (toupper(input) != 'F');
 }
 
+void singleplayerGameLoop(int selection) {
+		do{
+		clearScreen(); 
+		cout << "Welcome to Noughts and crosses!\n";
+		
+		computerMove(selection);
+		checkStatus();
+		displayGrid();
+		displayInput();
+		singleCheckInput();
+		checkStatus();
+
+	} while (toupper(input) != 'F');
+	
+	
+	// switch(selection){
+	// 	case 0: 
+	// 		cout << "Easy mode selected\n"; 
+	// 		break;
+	// 	case 1:
+	// 		cout << "Medium mode selected\n";
+	// 		break;
+	// 	case 2:
+	// 		cout << "Hard mode selected\n";
+	// 		break;
+	// }
+}
+
+void computerMove(int selection) {
+	//selection determines the difficulty
+	//0 = easy, 1 = medium, 2 = hard
+	switch (selection) {
+	case 0: { //easy mode, random move
+		int row, col;
+		srand((unsigned int)time(NULL));
+		do {
+			row = rand() % 3;
+			col = rand() % 3;
+		} while (grid[row][col] != ' ');
+
+		grid[row][col] = 'O';
+		filledSquares++;
+		break;
+	}
+	case 1: { //medium mode, block player win or random
+		//check if player is about to win and block
+		bool blocked = false;
+		//check rows
+		for (int row = 0; row < ROW; row++) {
+			if (grid[row][0] == 'X' && grid[row][1] == 'X' && grid[row][2] == ' ') {
+				grid[row][2] = 'O';
+				blocked = true;
+				filledSquares++;
+				break;
+			}
+			else if (grid[row][0] == 'X' && grid[row][2] == 'X' && grid[row][1] == ' ') {
+				grid[row][1] = 'O';
+				blocked = true;
+				filledSquares++;
+				break;
+			}
+			else if (grid[row][1] == 'X' && grid[row][2] == 'X' && grid[row][0] == ' ') {
+				grid[row][0] = 'O';
+				blocked = true;
+				filledSquares++;
+				break;
+			}
+		}
+		//if not blocked, random move
+		if (!blocked) {
+			int row, col;
+			srand((unsigned int)time(NULL));
+			do {
+				row = rand() % 3;
+				col = rand() % 3;
+			} while (grid[row][col] != ' ');
+
+			grid[row][col] = 'O';
+			filledSquares++;
+		}
+		break;
+	}
+	case 2: { //hard mode, to be implemented
+		//for now just random move
+		int row, col;
+		srand((unsigned int)time(NULL));
+		do {
+			row = rand() % 3;
+			col = rand() % 3;
+		} while (grid[row][col] != ' ');
+
+		grid[row][col] = 'O';
+		filledSquares++;
+		break;
+	}
+	}
+}
+
+void difficultySelection() {
+		using namespace ftxui;
+
+
+	//creates the screen and menu component
+    auto screen = ScreenInteractive::TerminalOutput();
+    std::vector<std::string> menu_entries = {
+		"Easy",
+		"Medium",
+		"Hard",
+		"Back to Main Menu"
+    };
+    int selected = 0; //sets the initial selected menu item
+
+    //Define the component for the menu logic.
+    MenuOption option;
+    //When the user presses Enter, exit the loop.
+    option.on_enter = screen.ExitLoopClosure();
+    auto menu = Menu(&menu_entries, &selected, option) | border | center;
+
+    //Defines the main document layout (Title + Menu)
+    auto title = text("Choose your Difficulty") | bold | hcenter;
+    auto component_document = ftxui::Renderer(menu, [menu, title] {
+        auto document = vbox({
+            title,
+            separator(),
+            menu->Render() //This is called on every screen update
+        }) | border | center;
+        
+        return document; 
+    });
+    
+    //Set the initial focus and run the interactive loop.
+    screen.Loop(component_document);
+    
+    //After the user exits the loop (by pressing Enter or clicking on a menu item),
+    //check the 'selected' index.
+    if (selected == 3) { // "Back to main menu" is at index 1
+        clearScreen();
+		displayMenuFTXUI(); 
+    }
+    else if (selected == 0) { //"easy" is at index 0
+
+        singleplayerGameLoop(0);
+    }
+	else if (selected == 1){ //"medium" is at index 2
+	
+		singleplayerGameLoop(1);
+	}
+	else if (selected == 2){
+		singleplayerGameLoop(2);
+	}
+}
+
+static void singleCheckInput() {
+	cin >> input;
+
+	if (cin.fail()) {
+		cout << "Invalid character, try agian!\n";
+		checkInput();
+	}
+
+	input = toupper(input);
+
+	switch (input) {
+		case 'Q': singleFillSquare(0, 0); break;
+		case 'W': singleFillSquare(0, 1); break;
+		case 'E': singleFillSquare(0, 2); break;
+		case 'A': singleFillSquare(1, 0); break;
+		case 'S': singleFillSquare(1, 1); break;
+		case 'D': singleFillSquare(1, 2); break;
+		case 'Z': singleFillSquare(2, 0); break;
+		case 'X': singleFillSquare(2, 1); break;
+		case 'C': singleFillSquare(2, 2); break;
+
+	default:
+		cout << "Invalid character, try again!\n";
+		checkInput();
+		break;
+	}
+}
+
+void singleFillSquare(int row, int col) {
+	
+	if (grid[row][col] != ' ') {
+		cout << "That square is filled, please try again\n";
+		checkInput();
+	}
+	else {
+		grid[row][col] = 'X';
+		filledSquares++;
+	};
+
+}
+
+
 void clearScreen() {
+	//crossplatform code to clear the terminal
+	
 	#ifdef _WIN32
 		system("cls");
 	#else
